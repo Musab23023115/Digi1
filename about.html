@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Digi-Go!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #dcdcdc;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .content h1 {
+            text-align: center;
+            font-size: 36px;
+        }
+
+        .content .about-text {
+            font-size: 18px;
+            line-height: 1.5;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .content .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: orange;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar {
+  width: 200px;
+  background-color: #062112;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar a:hover {
+  background-color: #69f0ae;
+}
+
+.sidebar .version {
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto;
+}
+
+        .logout {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .logout-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="content">
+        <h1>About</h1>
+        <div class="logo">DIGI-GO!</div>
+        <div class="about-text">
+            <p>Digi-Go! is a digital wallet website that secures your financial transactions. With Digi-Go!, you can manage all your financial transactions, payments, and also track your expenses in one place. Digi-Go! also protects your sensitive information with advanced encryption and two-factor authentication. Digi-Go! can be your reliable companion for all your needs!</p>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="Login.html" class="logout"><i class="logout-icon">&#x1F464;</i>Logout</a>
+        <h2>Digi-Go</h2>
+        <a href="Homepage.html">Home</a>
+        <a href="transfertypes.html">Transfer</a>
+        <a href="cards.html">Cards</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="about.html">About</a>
+        <a href="#">Settings</a>
+        <p class="version">Version 1.0.3</p>
+      </div>
+    </div>
+
+</body>
+</html>

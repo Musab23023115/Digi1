@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #dcdcdc;
+}
+
+.card {
+  background-color: #000;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card input {
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 80%;
+}
+
+.card input:focus {
+  outline: none;
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #fff;
+  font-size: 28px;
+}
+
+.card .amount {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.card .confirm-button {
+  background-color: #69f0ae;
+  color: #fff;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card .confirm-button:hover {
+  background-color: #4caf50;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #062112;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar a:hover {
+  background-color: #69f0ae;
+}
+
+.sidebar .version {
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto;
+}
+
+.logout {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.logout-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="content">
+    <h1>LOCAL TRANSFER</h1>
+    <div class="card">
+      <input type="text" placeholder="Enter recipient username" id="recipient">
+      <h2>AMOUNT:</h2>
+      <input type="text" placeholder="Enter Amount" id="amount" class="amount" oninput="validateAmount()">
+      <button class="confirm-button" onclick="confirmTransfer()">CONFIRM</button>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <a href="Login.html" class="logout"><i class="logout-icon">&#x1F464;</i>Logout</a>
+    <h2>Digi-Go</h2>
+    <a href="Homepage.html">Home</a>
+    <a href="transfertypes.html">Transfer</a>
+    <a href="cards.html">Cards</a>
+    <a href="transactions.html">Transactions</a>
+    <a href="about.html">About</a>
+    <a href="#">Settings</a>
+    <p class="version">Version 1.0.3</p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const currency = localStorage.getItem('currency') || 'SGD';
+    document.getElementById('amount').placeholder = `Enter Amount (${currency})`;
+  });
+
+  function validateAmount() {
+    const input = document.getElementById('amount');
+    let value = input.value.replace(/[^0-9]/g, ''); 
+
+    
+    if (value.length > 8) {
+      value = value.substring(0, 8);
+    }
+
+    
+    if (value.length > 0) {
+      value = (parseFloat(value) / 100).toFixed(2);
+    } else {
+      value = '';
+    }
+
+    input.value = value;
+  }
+
+  function confirmTransfer() {
+    const recipient = document.getElementById('recipient').value;
+    let amount = document.getElementById('amount').value;
+    const currency = localStorage.getItem('currency') || 'SGD';
+
+    if (!recipient || !amount) {
+      alert('Please enter both recipient username and amount.');
+      return;
+    }
+
+    amount = parseFloat(amount);
+
+    if (isNaN(amount)) {
+      alert('Please enter a valid amount.');
+      return;
+    }
+
+    let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+
+    if (amount > currentBalance) {
+      alert('Insufficient balance');
+      return;
+    }
+
+    currentBalance -= amount;
+    localStorage.setItem('balance', currentBalance.toFixed(2));
+
+    const transaction = {
+      username: recipient,
+      amount: -amount,
+      currency: currency
+    };
+
+    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    transactions.push(transaction);
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+
+    alert(`Transfer of ${currency} ${amount.toFixed(2)} to ${recipient} confirmed!`);
+
+    
+  }
+</script>
+
+</body>
+</html>

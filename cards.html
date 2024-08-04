@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #dcdcdc;
+        }
+
+        .wallet-container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .wallet-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .wallet-header h1 {
+            font-size: 24px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .add-card-btn {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            margin-left: 10px;
+        }
+
+        .card {
+            width: 100%; 
+            max-width: 500px; 
+            margin: 20px auto;
+            background-color: #000;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+            color: #fff;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 24px;
+            text-align: center; 
+        }
+
+        .card p {
+            margin: 5px 0;
+            font-size: 16px;
+            text-align: center; 
+        }
+
+        .balance {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #062112;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+        }
+
+        .sidebar h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            padding: 10px;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sidebar a:hover {
+            background-color: #69f0ae;
+        }
+
+        .sidebar .version {
+            font-size: 12px;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+
+        .logout {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .logout-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+       
+        .wrapper {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-logo {
+            text-align: center;
+        }
+
+        .payment-logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        .form {
+            margin-top: 20px;
+        }
+
+        .card-space {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .icon-relative {
+            position: relative;
+        }
+
+        .icon-relative i {
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .card-grp {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-item {
+            width: 48%;
+        }
+
+        .btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .container-2fa {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: sans-serif;
+        }
+
+        .code-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .code-box {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 24px;
+            line-height: 50px;
+        }
+
+        .timer {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .invalid-code {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: not-allowed;
+        }
+
+        
+        .card-display {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #000;
+            border-radius: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+            color: #fff;
+        }
+
+        .card-display h2 {
+            margin-top: 0;
+            font-size: 24px;
+            text-align: center; 
+        }
+
+        .card-display p {
+            margin: 5px 0;
+            font-size: 16px;
+            text-align: center; 
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="content">
+        <div class="wallet-container">
+            <div class="wallet-header">
+                <h1>Wallet <button class="add-card-btn" onclick="openAddCardForm()">+</button></h1>
+            </div>
+        </div>
+
+        <div id="addCardForm" style="display: none;">
+            <!-- Payment Checkout Form -->
+            <div class="wrapper">
+                <div class="payment">
+                    <div class="payment-logo">
+                        <img src="Logo.png" alt="Logo">
+                    </div>
+                    <div class="form">
+                        <div class="card-space icon-relative">
+                            <label class="label">Card Holder Name:</label>
+                            <input type="text" class="input" id="card-holder-name" placeholder="Enter name" oninput="validateCardHolderName()">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="card-space icon-relative">
+                            <label class="label">Credit/Debit Card Number:</label>
+                            <input type="text" class="input" id="card-number" placeholder="**** **** **** ****" oninput="formatCardNumber()">
+                            <i class="far fa-credit-card"></i>
+                        </div>
+                        <div class="card-grp space">
+                            <div class="card-item icon-relative">
+                                <label class="label">MM/YY:</label>
+                                <input type="text" name="expiry-date" id="expiry-date" class="input" placeholder="MM/YY" oninput="validateExpiryDate()">
+                                <i class="far fa-calendar-alt"></i>
+                            </div>
+                            <div class="card-item icon-relative">
+                                <label class="label">CVV:</label>
+                                <input type="text" id="cvv" class="input" placeholder="***" oninput="validateCVV()">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="btn">
+                            <button onclick="handleConfirm()">CONFIRM</button>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="2faForm" style="display: none;">
+            <div class="container-2fa">
+                <h1>Verification</h1>
+                <p>Enter the code sent to your device</p>
+                <div class="code-container">
+                    <input type="text" class="code-box" maxlength="1">
+                    <input type="text" class="code-box" maxlength="1">
+                    <input type="text" class="code-box" maxlength="1">
+                    <input type="text" class="code-box" maxlength="1">
+                    <input type="text" class="code-box" maxlength="1">
+                    <input type="text" class="code-box" maxlength="1">
+                </div>
+                <div class="timer">
+                    Time left: <span id="timer">60</span>s
+                </div>
+                <button class="button" onclick="handleVerify()">VERIFY</button>
+            </div>
+        </div>
+
+        <div id="cardDisplay" class="card-display" style="display: none;">
+            <h2 id="display-card-number">**** **** **** ****</h2>
+            <p id="display-card-holder">name</p>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="Login.html" class="logout"><i class="logout-icon">&#x1F464;</i>Logout</a>
+        <h2>Digi-Go</h2>
+        <a href="Homepage.html">Home</a>
+        <a href="transfertypes.html">Transfer</a>
+        <a href="cards.html">Cards</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="about.html">About</a>
+        <a href="#">Settings</a>
+        <p class="version">Version 1.0.3</p>
+      </div>
+    </div>
+
+<script>
+    function openAddCardForm() {
+        document.getElementById('addCardForm').style.display = 'block';
+    }
+
+    function handleConfirm() {
+        document.getElementById('addCardForm').style.display = 'none';
+        document.getElementById('2faForm').style.display = 'block';
+    }
+
+    function handleVerify() {
+        const cardHolderName = document.getElementById('card-holder-name').value;
+        const cardNumber = document.getElementById('card-number').value;
+        document.getElementById('display-card-holder').textContent = cardHolderName;
+        document.getElementById('display-card-number').textContent = cardNumber;
+
+        document.getElementById('2faForm').style.display = 'none';
+        document.getElementById('cardDisplay').style.display = 'block';
+    }
+
+    // 2FA Timer Logic
+    let timeLeft = 60;
+    const timerElement = document.getElementById('timer');
+    const timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+        } else {
+            clearInterval(timerInterval);
+            
+        }
+    }, 1000);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstName = localStorage.getItem('firstName');
+        const balance = localStorage.getItem('balance') || 200.00;
+        document.getElementById('welcome-message').textContent = `Welcome Back, ${firstName || 'User'}!`;
+        document.getElementById('balance-display').textContent = `SGD $${balance.toFixed(2)}`;
+    });
+
+    function validateCardHolderName() {
+        const input = document.getElementById('card-holder-name');
+        input.value = input.value.replace(/[^a-zA-Z ]/g, '');
+    }
+
+    function formatCardNumber() {
+        const input = document.getElementById('card-number');
+        input.value = input.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+        if (input.value.length > 19) {
+            input.value = input.value.slice(0, 19);
+        }
+    }
+
+    function validateExpiryDate() {
+        const input = document.getElementById('expiry-date');
+        input.value = input.value.replace(/[^0-9/]/g, '');
+        if (input.value.length > 5) {
+            input.value = input.value.slice(0, 5);
+        }
+        if (input.value.length === 2 && !input.value.includes('/')) {
+            input.value += '/';
+        }
+    }
+
+    function validateCVV() {
+        const input = document.getElementById('cvv');
+        input.value = input.value.replace(/\D/g, '');
+        if (input.value.length > 3) {
+            input.value = input.value.slice(0, 3);
+        }
+    }
+</script>
+
+</body>
+</html>

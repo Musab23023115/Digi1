@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #dcdcdc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: white;
+  color: black;
+  padding: 20px 40px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  width: 200px;
+  margin: 10px 0;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #062112;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar a:hover {
+  background-color: #69f0ae;
+}
+
+.sidebar .version {
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto;
+}
+
+.logout {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.logout-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="content">
+    <h1>TRANSFER</h1>
+    <button onclick="window.location.href='localtransfer.html'">LOCAL</button>
+    <p style="font-size: 24px; margin: 20px 0;">OR</p>
+    <button onclick="window.location.href='overseastransfer.html'">OVERSEAS</button>
+  </div>
+
+  <div class="sidebar">
+    <a href="Login.html" class="logout"><i class="logout-icon">&#x1F464;</i>Logout</a>
+    <h2>Digi-Go</h2>
+    <a href="Homepage.html">Home</a>
+    <a href="transfertypes.html">Transfer</a>
+    <a href="cards.html">Cards</a>
+    <a href="transactions.html">Transactions</a>
+    <a href="about.html">About</a>
+    <a href="#">Settings</a>
+    <p class="version">Version 1.0.3</p>
+  </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstName = localStorage.getItem('firstName');
+        if (firstName) {
+            document.getElementById('welcome-message').textContent = `Welcome Back, ${firstName}!`;
+        }
+    });
+</script>
+
+</body>
+</html>
